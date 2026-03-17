@@ -3,7 +3,7 @@ let allRawRecords = [];
 let currentFilteredRecords = [];
 
 window.onload = function() {
-    addBatchInput("批次 1");
+    addBatchInput("数据项 1");
 };
 
 function addBatchInput(defaultTitle = "") {
@@ -13,14 +13,14 @@ function addBatchInput(defaultTitle = "") {
     div.className = 'batch-input-group';
     div.id = `batch-${batchCount}`;
 
-    const title = defaultTitle || `批次 ${batchCount}`;
+    const title = defaultTitle || `数据项 ${batchCount}`;
 
     div.innerHTML = `
         <div class="batch-header">
-            <input type="text" class="batch-title-input" value="${title}" placeholder="给这个批次起个名字">
-            <button class="btn-remove-batch" onclick="removeBatch('batch-${batchCount}')">删除此批次</button>
+            <input type="text" class="batch-title-input" value="${title}" placeholder="给这个数据项起个名字">
+            <button class="btn-remove-batch" onclick="removeBatch('batch-${batchCount}')">删除此数据项</button>
         </div>
-        <textarea placeholder='在此处粘贴 JSON 数组...'></textarea>
+        <textarea placeholder='在此处粘贴 user_usage_group_by_sessions 数组数据...'></textarea>
     `;
     container.appendChild(div);
 }
@@ -36,7 +36,7 @@ function clearAllBatches() {
         batchCount = 0;
         allRawRecords = [];
         currentFilteredRecords = [];
-        addBatchInput("批次 1");
+        addBatchInput("数据项 1");
         destroyModelChart();
         document.getElementById('resultSection').style.display = 'none';
     }
@@ -81,14 +81,14 @@ function processAllData() {
     let hasError = false;
 
     if (batches.length === 0) {
-        showError("请至少添加一个数据批次。");
+        showError("请至少添加一个数据数据项。");
         return;
     }
 
     batches.forEach((batchEl, index) => {
         const titleInput = batchEl.querySelector('.batch-title-input');
         const textarea = batchEl.querySelector('textarea');
-        const batchName = titleInput.value.trim() || `未命名批次 ${index + 1}`;
+        const batchName = titleInput.value.trim() || `未命名数据项 ${index + 1}`;
         const jsonStr = textarea.value.trim();
 
         if (!jsonStr) return;
@@ -98,7 +98,7 @@ function processAllData() {
             data = JSON.parse(jsonStr);
             if (!Array.isArray(data)) throw new Error("必须是 JSON 数组");
         } catch (e) {
-            showError(`批次 "${batchName}" 格式错误：${e.message}`);
+            showError(`数据项 "${batchName}" 格式错误：${e.message}`);
             hasError = true;
             return;
         }
@@ -142,7 +142,7 @@ function processAllData() {
     if (hasError) return;
 
     if (allRawRecords.length === 0) {
-        showError("所有批次均为空或无效，请输入数据。");
+        showError("所有数据项均为空或无效，请输入数据。");
         return;
     }
 

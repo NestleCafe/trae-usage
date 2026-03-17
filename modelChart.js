@@ -16,7 +16,16 @@ function initModelChart() {
             formatter: '{a} <br/>{b}: {c} ({d}%)'
         },
         legend: {
-            /* show: false */
+            orient: 'horizontal',
+            bottom: 0,
+            left: 'center',
+            itemWidth: 10,
+            itemHeight: 10,
+            itemGap: 10,
+            textStyle: {
+                fontSize: 12,
+                color: 'var(--text-sub)'
+            }
         },
         series: [
             {

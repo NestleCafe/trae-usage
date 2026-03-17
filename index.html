@@ -12,7 +12,9 @@
 
 <div class="container">
     <h1>Trae 账单/用量 分析</h1>
-
+    <p style="color: var(--text-sub); font-size: 16px; margin-bottom: 20px; line-height: 1.6;">
+        💡 数据来源：在个人信息 Usage 页面中，打开浏览器开发者工具（F12），找到 <code>query_user_usage_group_by_session</code> 接口，复制响应中 <code>user_usage_group_by_sessions</code> 字段的数组数据，粘贴到下方输入框中。
+    </p>
     <div class="input-section">
         <h2>数据输入区</h2>
         <div id="batchesContainer">
@@ -20,7 +22,7 @@
         </div>
 
         <div class="controls">
-            <button class="btn-add" onclick="addBatchInput()">+ 添加新的数据批次</button>
+            <button class="btn-add" onclick="addBatchInput()">+ 添加新的数据项</button>
             <button class="btn-secondary" onclick="clearAllBatches()">清空所有</button>
             <button class="btn-primary" onclick="processAllData()">开始分析</button>
         </div>
@@ -28,8 +30,7 @@
     </div>
 
     <div id="resultSection" style="display: none;">
-        <!-- 全局统计 -->
-        <h2>📊 全局汇总统计</h2>
+        <h2>📊 汇总统计</h2>
         <div class="stats-grid">
             <div class="stat-card">
                 <div class="stat-label">总费用 (USD)</div>
@@ -43,14 +44,16 @@
                 <div class="stat-label">总记录数</div>
                 <div class="stat-value" id="totalCount">0</div>
             </div>
+        </div>
+
+        <div class="chart-row">
             <div class="stat-card chart-card">
                 <div class="stat-label">模型调用统计</div>
                 <div id="modelChartContainer" class="model-chart"></div>
             </div>
         </div>
 
-        <!-- 分批次统计 -->
-        <h2>📦 分批次详情</h2>
+        <h2>📦 分数据项详情</h2>
         <div id="batchStatsContainer" class="batch-stats-container">
             <!-- 动态生成 -->
         </div>
@@ -77,7 +80,7 @@
             <table>
                 <thead>
                     <tr>
-                        <th>来源批次</th>
+                        <th>来源数据项</th>
                         <th>使用时间</th>
                         <th>模型名称</th>
                         <th>Token 详情</th>
